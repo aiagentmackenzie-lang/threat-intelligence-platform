@@ -1,0 +1,21 @@
+[
+  {
+    "name": "abuseipdb",
+    "type": "rest",
+    "url": "https://api.abuseipdb.com/api/v2/blacklist",
+    "auth": {
+      "type": "header",
+      "headerName": "Key",
+      "env": "ABUSEIPDB_API_KEY"
+    },
+    "intervalMinutes": 60,
+    "enabled": false
+  },
+  {
+    "name": "rss-security-blog",
+    "type": "rss",
+    "url": "https://example.com/feed.xml",
+    "intervalMinutes": 120,
+    "enabled": false
+  }
+]
