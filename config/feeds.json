@@ -1,0 +1,27 @@
+[
+  {
+    "name": "abuseipdb",
+    "type": "rest",
+    "url": "https://api.abuseipdb.com/api/v2/blacklist",
+    "auth": {
+      "type": "header",
+      "headerName": "Key",
+      "env": "ABUSEIPDB_API_KEY"
+    },
+    "intervalMinutes": 60,
+    "enabled": false
+  },
+  {
+    "name": "krebs-security",
+    "type": "rss",
+    "url": "https://krebsonsecurity.com/feed/",
+    "intervalMinutes": 120,
+    "enabled": false
+  },
+  {
+    "name": "demo-threat-feed",
+    "type": "static",
+    "description": "Sample IOCs for testing",
+    "enabled": true
+  }
+]

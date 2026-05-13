@@ -1,0 +1,20 @@
+[
+  {
+    "source": "test-feed",
+    "timestamp": "2026-03-30T10:00:00Z",
+    "text": "Malicious IP 185.220.101.1 detected from domain evil.com with hash d41d8cd98f00b204e9800998ecf8427e",
+    "data": {}
+  },
+  {
+    "source": "test-feed-2",
+    "timestamp": "2026-03-30T10:05:00Z",
+    "text": "Brute force from 185.220.101.1 hitting http://phishing-site.com/login",
+    "data": {}
+  },
+  {
+    "source": "test-feed",
+    "timestamp": "2026-03-30T10:10:00Z",
+    "text": "Suspicious hash e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 from bad-actor.net",
+    "data": {}
+  }
+]
