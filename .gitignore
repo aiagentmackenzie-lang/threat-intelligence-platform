@@ -36,3 +36,4 @@ config/*.local.json
 output/
 reports/
 threat-report.json
+BUG_CATALOG.md
