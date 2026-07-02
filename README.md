@@ -4,7 +4,27 @@ A modern, security-focused threat intelligence aggregation and analysis platform
 
 ## Overview
 
-This platform ingests threat data from multiple external and internal sources, extracts Indicators of Compromise (IOCs), enriches them with contextual intelligence, correlates sightings across feeds and telemetry, and produces structured outputs for analysts and downstream security systems.
+This platform ingests threat data from REST APIs and RSS feeds, extracts Indicators of Compromise (IOCs), correlates sightings, enriches IP reputation via AbuseIPDB and a no-key GeoIP service, optionally analyzes risk with an OpenAI-compatible LLM, and produces structured outputs for analysts and downstream security systems.
+
+> **Honest scope:** MISP, TAXII, and AlienVault OTX feeds are **not yet implemented** — only the environment variables and feed schema placeholders exist. VirusTotal enrichment is declared in the config but the provider functions are stubs that return `null`.
+
+## Supported capabilities
+
+| Capability | Status |
+|:---|:---|
+| REST API feed ingestion | ✅ Implemented |
+| RSS feed ingestion | ⚠️ Simplified regex parser (no full XML parser) |
+| Static/demo feed | ✅ Implemented |
+| IOC extraction (IP, domain, hash, URL) | ✅ Implemented |
+| Normalization + correlation | ✅ Implemented |
+| AbuseIPDB IP enrichment | ✅ Implemented |
+| GeoIP enrichment | ✅ Implemented (ip-api.com, no API key) |
+| VirusTotal enrichment | ❌ Stubbed — returns `null` |
+| OpenAI risk analysis | ✅ Implemented (requires `OPENAI_API_KEY`) |
+| MISP integration | ❌ Not implemented |
+| TAXII ingest | ❌ Not implemented |
+| AlienVault OTX ingest | ❌ Not implemented |
+| Console / JSON / NDJSON / STIX reporting | ✅ Implemented |
 
 ## Architecture
 
@@ -15,7 +35,7 @@ Threat Feeds / APIs / RSS / Internal Logs
         Ingestion Layer
                 │
                 ▼
-  Validation + Normalization Layer
+  Normalization Layer (with Zod validation)
                 │
                 ▼
          IOC Extraction Layer
@@ -78,11 +98,17 @@ docker compose run --rm threat-intel-cli
 
 ## Configuration
 
-Feed configuration is managed in `config/feeds.json`. All feeds are disabled by default.
+Feed configuration is managed in `config/feeds.json`. All external feeds (AbuseIPDB, Krebs on Security RSS) are disabled by default; a built-in demo feed is enabled so the pipeline can run without API keys.
 
-To enable a feed:
+To enable a real feed:
 1. Set `"enabled": true` in `config/feeds.json`
 2. Add the required API key to your `.env` file
+
+### Currently wired feed types
+
+- `rest` — HTTP GET with header/basic/query auth, retry/backoff, timeout
+- `rss` — Simplified regex-based RSS item extraction
+- `static` — Built-in demo IOCs for testing
 
 ## Environment Variables
 
